@@ -1,3 +1,5 @@
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 #include <iostream>
 #include <string>
 
@@ -33,14 +35,10 @@ public:
     }
 };
 
-int main()
-{
-    Solution solution;
-    cout<<"Hello World!"<<endl;
-    cout << solution.intToRoman(3) << endl; //III
-    cout << solution.intToRoman(4) << endl; //IV
-    cout << solution.intToRoman(9) << endl; //IX
-    cout << solution.intToRoman(58) << endl; //LVIII
-    cout << solution.intToRoman(1994) << endl; //MCMXCIV
-    return 0;
+TEST_CASE("Integer to Roman") {
+    REQUIRE(Solution().intToRoman(3)=="III");
+    REQUIRE(Solution().intToRoman(4)=="IV");
+    REQUIRE(Solution().intToRoman(9)=="IX");
+    REQUIRE(Solution().intToRoman(58)=="LVIII");
+    REQUIRE(Solution().intToRoman(1994)=="MCMXCIV");
 }

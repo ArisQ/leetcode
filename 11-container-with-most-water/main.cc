@@ -1,3 +1,5 @@
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>
 #include <iostream>
 #include <vector>
 
@@ -50,10 +52,8 @@ class Solution_2
     }
 };
 
-int main()
-{
+TEST_CASE("Integer to Roman") {
     vector<int> input = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    cout << Solution_1().maxArea(input) << endl;
-    cout << Solution_2().maxArea(input) << endl;
-    return 0;
+    REQUIRE(Solution_1().maxArea(input)==49);
+    REQUIRE(Solution_2().maxArea(input)==49);
 }
