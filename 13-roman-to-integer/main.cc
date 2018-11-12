@@ -9,14 +9,6 @@ using namespace std;
 class Solution {
 public:
     int romanToInt(string s) {
-//        Symbol       Value
-//I             1
-//V             5
-//X             10
-//L             50
-//C             100
-//D             500
-//M             1000
         int result = 0;
         char p = 0;
         vector<int> rt(26);
