@@ -11,7 +11,7 @@ public:
         vector<vector<int>> result;
         if (nums.empty())
             return result;
-        quickSort(nums, nums.begin(), nums.end());
+        quickSort(nums.begin(), nums.end());
         vector<int> neg_value;
         vector<int> neg_count;
         vector<int> pos_value;
@@ -69,12 +69,40 @@ public:
                     ++pos_iter;
             }
         }
-        //-a b c or -a -b c
-        //
+        //-a b c
+        for(auto a=neg_value.crbegin();a!=neg_value.crend();++a)
+            for(auto b=pos_value.cbegin();b!=pos_value.cend();++b){
+                if(*a+*b>0)
+                    break;
+                for(auto c=b;c!=pos_value.cend();++c){
+                    if(*a+*b+*c==0) {
+                        if(b==c && *(pos_count.cbegin()+(b-pos_value.cbegin()))<2)
+                            break;
+                        result.push_back({*a,*b,*c});
+                        break;
+                    }else if (*a+*b+*c>0)
+                        break;
+                }
+            }
+        //-a -b c
+        for(auto c=pos_value.cbegin();c!=pos_value.cend();++c)
+            for(auto b=neg_value.crbegin();b!=neg_value.crend();++b){
+                if(*c+*b<0)
+                    break;
+                for(auto a=b;a!=neg_value.crend();++a){
+                    if(*a+*b+*c==0) {
+                        if(b==a && *(neg_count.crbegin()+(b-neg_value.crbegin()))<2)
+                            break;
+                        result.push_back({*a,*b,*c});
+                        break;
+                    }else if (*a+*b+*c<0)
+                        break;
+                }
+            }
         return result;
     }
 
-    void quickSort(vector<int> &nums, vector<int>::iterator begin, vector<int>::iterator end) {
+    void quickSort(vector<int>::iterator begin, vector<int>::iterator end) {
         if (begin == end || begin + 1 == end)
             return;
         auto p = begin;
@@ -87,16 +115,24 @@ public:
                 *p = tmp;
             }
         }
-        quickSort(nums, begin, p);
-        quickSort(nums, p + 1, end);
+        quickSort(begin, p);
+        quickSort(p + 1, end);
     }
 };
 
 TEST_CASE("Longest common prefix") {
-    vector<int> input = {-1, 0, 1, 2, -1, -4};
-    vector<vector<int>> output = {
-        {-1, 0,  1},
-        {-1, -1, 2},
+    vector<vector<int>> inputs = {
+        {-1, 0, 1, 2, -1, -4},
+        {0}
     };
-    REQUIRE(Solution().threeSum(input) == output);
+    vector<vector<vector<int>>> outputs = {
+        {
+            {-1, 0,  1},
+            {-1, -1, 2},
+        },
+        {
+        }
+    };
+    for(size_t i=0;i<inputs.size();++i)
+        REQUIRE(Solution().threeSum(inputs[i]) == outputs[i]);
 }
