@@ -32,9 +32,9 @@ class Solution {
                             --d;
                         }
                     }
-                    while(b!=nums.end() && *b==*(b+1)) ++b;
+                    while(b+1<nums.end() && *b==*(b+1)) ++b;
                 }
-                while(a!=nums.end() && *a==*(a+1)) ++a;
+                while(a+1<nums.end() && *a==*(a+1)) ++a;
             }
             return result;
         }
