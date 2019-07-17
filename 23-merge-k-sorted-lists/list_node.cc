@@ -1,12 +1,8 @@
-#define CATCH_CONFIG_MAIN
-
-#include <catch.hpp>
 #include <vector>
+#include <iostream>
 #include "list_node.h"
 
 using namespace std;
-
-
 
 ListNode *makeList(vector<int> values) {
     ListNode *head = nullptr;
@@ -18,7 +14,23 @@ ListNode *makeList(vector<int> values) {
     return head;
 }
 
-void freeListNode(ListNode *head) {
+ListNode *makeList(initializer_list<int> values) {
+    ListNode *head = nullptr, *p = nullptr;
+    if (values.size() == 0)
+        return head;
+    auto iter = values.begin();
+    p = new ListNode(*iter);
+    head = p;
+    ++iter;
+    for (; iter != values.end(); ++iter) {
+        auto q = new ListNode(*iter);
+        p->next = q;
+        p = q;
+    }
+    return head;
+}
+
+void freeList(ListNode *head) {
     while (head != nullptr) {
         auto p = head;
         head = head->next;
@@ -26,8 +38,7 @@ void freeListNode(ListNode *head) {
     }
 }
 
-
-bool equalListNode(const ListNode *l, const ListNode *r) {
+bool equalList(const ListNode *l, const ListNode *r) {
     while (l != nullptr && r != nullptr) {
         if (l->val != r->val)
             return false;
@@ -39,22 +50,23 @@ bool equalListNode(const ListNode *l, const ListNode *r) {
     return true;
 }
 
-void printListNode(const ListNode *head) {
+ostream &operator<<(ostream &os, const ListNode *head) {
     while (head != nullptr) {
-        cout << head->val << " ";
+        os << head->val << " ";
         head = head->next;
     }
-    cout << endl;
+    return os;
 }
 
-void printListNodeArray(vector<ListNode *> lists) {
-    for(auto list in lists)
-        printListNode(list);
+std::ostream &operator<<(std::ostream &os, std::vector<ListNode *> &lists) {
+    cout << "list<" << lists.size() << ">:";
+    for (auto list : lists)
+        cout << endl << list;
+    return os;
 }
 
-void freeListNodeArray(vector<ListNode *> lists) {
-    for(auto list in lists)
+void freeListArray(vector<ListNode *> lists) {
+    for (auto list : lists)
         freeList(list);
 }
-
 

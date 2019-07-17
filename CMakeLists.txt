@@ -13,4 +13,5 @@ add_subdirectory(19-remove-nth-node-from-end-of-list)
 add_subdirectory(20-valid-parentheses)
 add_subdirectory(21-merge-two-sorted-lists)
 add_subdirectory(22-generate-parentheses)
+add_subdirectory(23-merge-k-sorted-lists)
 
