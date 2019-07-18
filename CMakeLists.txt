@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(leetcode)
+set(CMAKE_CXX_STANDARD 11)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(11-container-with-most-water)
 add_subdirectory(12-integer-to-roman)
