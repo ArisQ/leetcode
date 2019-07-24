@@ -82,4 +82,34 @@ TEST_CASE("Longest Valid Parentheses") {
     REQUIRE(Solution().longestValidParentheses("(())(") == 4);
 }
 
-// TODO: stack solution
+
+class SolutionStackVersion {
+public:
+    int longestValidParentheses(string s) {
+        int max_count = 0;
+        stack<int> stk;
+        stk.push(-1);//如果与-1匹配，则说明该位置的)没有匹配的(（此时stk为空）,则以该)位置作为标志替换-1
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == '(')
+                stk.push(i);
+            else {
+                stk.pop(); //对于每个)找到与之配对的)；如果无效/找不到，则结束之前的匹配，重新开始
+                if (stk.empty())
+                    stk.push(i);
+                else if (i - stk.top() > max_count)
+                    max_count = i - stk.top();
+            }
+        }
+
+        return max_count;
+    }
+};
+
+TEST_CASE("Longest Valid Parentheses - Stack Version") {
+    REQUIRE(SolutionStackVersion().longestValidParentheses("(()") == 2);
+    REQUIRE(SolutionStackVersion().longestValidParentheses(")()())") == 4);
+    REQUIRE(SolutionStackVersion().longestValidParentheses("()(()") == 2);
+    REQUIRE(SolutionStackVersion().longestValidParentheses("(()(((()") == 2);
+
+    REQUIRE(SolutionStackVersion().longestValidParentheses("(())(") == 4);
+}
