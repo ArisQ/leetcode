@@ -1,6 +1,7 @@
 ## [First Missing Positive](https://leetcode.com/problems/first-missing-positive/)
 
-解法中用了sort，因此不是很满意，但是题目并没有规定，而且sort实现一般为$O(\log{n})$，因此能够满足要求。
+~~解法中用了sort，不是很满意，但是题目并没有规定，而且sort实现一般为$O(\log{n})$，因此能够满足要求。~~
+有误，sort是$O(n \log{n})$或者$O(n^2)$，因此不符合题目条件，请忽略main.cc中的解法。
 
 然后，学习了其他人的解法，比较迷的是运行时间0ms的最快解法，如下：
 
