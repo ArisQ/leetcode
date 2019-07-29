@@ -71,7 +71,6 @@ public:
         }
     }
 
-
     bool disableValueAtPosition(vector<vector<char>> &board,
                                 bool (&possible)[9][9][9],
                                 int (&possible_count)[9][9],
@@ -81,17 +80,17 @@ public:
     ) {
         //设置i，j位置上不可能填入value；修改过的possible和board位置保存到vector中返回
         //有冲突返回false，否则返回true
-//        if (!possible[i][j][value])
-//            return true; // already false; do nothing; should occur
+        //if (!possible[i][j][value])
+        //return true; // already false; do nothing; should occur
         if (possible_count[i][j] == 1)
             return false;
         possible[i][j][value] = false;
         --possible_count[i][j];
         if (possible_modified)
             possible_modified->push_back({i, j, value});
-//        if (possible_count[i][j] == 0) {
-//            return false;
-//        }
+        //if (possible_count[i][j] == 0) {
+        //  return false;
+        //}
         if (possible_count[i][j] == 1) { // && board[i][k]=='.'
             for (int l = 0; l < 9; ++l)
                 if (possible[i][j][l]) {
@@ -149,8 +148,7 @@ public:
                                  bool (&possible)[9][9][9],
                                  int (&possible_count)[9][9],
                                  vector<PossibleModified> &possible_modified,
-                                 vector<BoardPosition> &board_determined
-    ) {
+                                 vector<BoardPosition> &board_determined) {
         for (auto m:board_determined)
             board[m.i][m.j] = '.';
         for (auto m:possible_modified) {
@@ -164,8 +162,7 @@ public:
     bool trySolveSudoku(vector<vector<char>> &board,
                         bool (&possible)[9][9][9],
                         int (&possible_count)[9][9],
-                        const int i, const int j //try position
-    ) {
+                        const int i, const int j) {
         //尝试i，j位置上的每一种可能，并递归尝试后续位置；成功返回true，存在冲突返回alse
         vector<PossibleModified> possible_modified;
         vector<BoardPosition> board_determined;
@@ -301,7 +298,6 @@ TEST_CASE("Sudoku Solver - Wrong Answer 2") {
         {'4', '7', '8', '6', '5', '1', '2', '3', '9'}
     };
     cout << input;
-
     Solution().solveSudoku(input);
     cout << input;
     REQUIRE(input == output);
