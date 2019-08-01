@@ -2,6 +2,7 @@
 
 import requests
 import shutil
+import subprocess
 
 
 def create_question_template():
@@ -46,6 +47,8 @@ def create_question_template():
     replace_file_string(project_name + '/main.cc', 'TEST_CASE_NAME_PLACEHOLDER', question_title)
     with open('CMakeLists.txt', 'a') as f:
         f.write('add_subdirectory(%s)\n' % project_name)
+
+    subprocess.run(['git', 'add', project_name])
 
 
 def replace_file_string(file_path, placeholder, value):
