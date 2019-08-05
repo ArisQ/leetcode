@@ -33,6 +33,7 @@ public:
     }
 
     int uniquePathsWithObstacles(vector<vector<int>> &obstacleGrid, int i, int j) {
+        //递归是为了有些被障碍挡住的位置，不需要计算
         if (pathNum[i][j] != -1)
             return pathNum[i][j];
         int left = 0, down = 0;
