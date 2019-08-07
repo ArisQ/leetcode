@@ -63,7 +63,7 @@ public:
     int minDistance(string word1, string word2) {
         int word1Len = word1.size();
         int word2Len = word2.size();
-        vector<vector<int>> minSteps(word1Len + 1, vector<int>(word2Len + 1, INT_MAX));
+        vector<vector<int>> minSteps(word1Len + 1, vector<int>(word2Len + 1, INT_MAX)); //word1[0,i)与word2[0,j)相等所需要的步数
         minSteps[0][0] = 0;
         for (int i = 0; i < word1Len; ++i) {
             for (int j = 0; j < word2Len; ++j) {
