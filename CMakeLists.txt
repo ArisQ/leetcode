@@ -74,3 +74,5 @@ add_subdirectory(79-word-search)
 add_subdirectory(80-remove-duplicates-from-sorted-array-ii)
 add_subdirectory(81-search-in-rotated-sorted-array-ii)
 add_subdirectory(82-remove-duplicates-from-sorted-list-ii)
+
+add_subdirectory(list-node-pool)
