@@ -14,15 +14,16 @@ ostream &operator<<(ostream &os, const ListNode &node) {
 }
 
 template<class T>
-class NodePoolList {
+class NodePool {
     struct PoolNode {
         T node;
         PoolNode *next;
     };
 public:
-    explicit NodePoolList(size_t n) :
+    explicit NodePool(size_t n) :
         pool_size(n),
-        pool(vector<PoolNode>(n)) {
+        pool(vector<PoolNode>(n)),
+        head(nullptr) {
         for (size_t i = 0; i < n - 1; ++i) {
             pool[i].next = &pool[i + 1];
         }
@@ -31,14 +32,16 @@ public:
     }
 
     T *getNode() {
-        if (tail == head)
+        if (head!= nullptr &&tail == head)
             return nullptr;
         auto &node = tail->node;
+        if(head== nullptr)
+            head=tail;
         tail = tail->next;
         return &node;
     }
 
-    friend ostream &operator<<(ostream &os, const NodePoolList<T> &list) {
+    friend ostream &operator<<(ostream &os, const NodePool<T> &list) {
         os << "NodePool:" << endl;
         for (auto &n:list.pool) {
             os << "Node " << &n << " ->" << n.next << " {" << n.node << "}" << endl;
@@ -55,9 +58,9 @@ private:
 
 
 int main() {
-    NodePoolList<ListNode> poolList(10);
-    cout << poolList << endl;
-    ListNode *node = poolList.getNode();
+    NodePool<ListNode> pool(10);
+    cout << pool << endl;
+    ListNode *node = pool.getNode();
     if (node == nullptr) {
         cout << "get node error" << endl;
         return -1;
