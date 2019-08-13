@@ -26,6 +26,7 @@ struct TreeVal {
 TreeNode *makeTree(std::initializer_list<TreeVal> values);
 
 bool equalTree(const TreeNode *a, const TreeNode *b);
+bool lessTree(const TreeNode *a, const TreeNode *b);
 
 std::ostream &operator<<(std::ostream &os, const TreeNode *root);
 
@@ -34,8 +35,17 @@ struct Tree {
 
     Tree(TreeNode *root) : root(root) {}
 
-    bool operator==(const Tree &other) {
-        equalTree(this->root, other.root);
+    friend bool operator<(const Tree &a, const Tree &b) {
+        return lessTree(a.root, b.root);
+    }
+
+    friend bool operator==(const Tree &a, const Tree &b) {
+        return equalTree(a.root, b.root);
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const Tree *tree) {
+        os << tree->root;
+        return os;
     }
 };
 

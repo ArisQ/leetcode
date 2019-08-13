@@ -20,12 +20,13 @@ TreeNode *makeTree(std::initializer_list<TreeVal> values) {
             nodes.push(node->left);
         }
         ++iter;
+        if (iter == values.end())
+            break;
         if (!iter->isNull) {
             node->right = new TreeNode(iter->val);
             nodes.push(node->right);
         }
-        if (iter != values.end())
-            ++iter;
+        ++iter;
     }
     return root;
 }
@@ -37,7 +38,6 @@ ostream &operator<<(ostream &os, const TreeVal val) {
         os << val.val;
     return os;
 }
-
 
 std::ostream &operator<<(std::ostream &os, const TreeNode *root) {
     vector<vector<TreeVal>> values;
@@ -100,4 +100,28 @@ bool equalTree(const TreeNode *a, const TreeNode *b) {
     if (a->val != b->val)
         return false;
     return equalTree(a->left, b->left) && equalTree(a->right, b->right);
+}
+
+int compareTree(const TreeNode *a, const TreeNode *b) {
+    // a<b   -1
+    // a==b  0
+    // a>b   1
+    if (a == nullptr && b == nullptr)
+        return 0;
+    if (a == nullptr)
+        return -1; //b!=null
+    if (b == nullptr)
+        return 1; //a!==null
+    if (a->val < b->val)
+        return -1;
+    if (a->val > b->val)
+        return 1;
+    int left = compareTree(a->left, b->left);
+    if (left == 0)
+        return compareTree(a->right, b->right);
+    return left;
+}
+
+bool lessTree(const TreeNode *a, const TreeNode *b) {
+    return compareTree(a, b) == -1;
 }

@@ -18,6 +18,8 @@ ostream &operator<<(ostream &os, const vector<T> &array) {
 class Solution {
 public:
     vector<TreeNode *> generateTrees(int n) {
+        if (n == 0)
+            return vector<TreeNode *>();
         vector<vector<TreeNode *>> result;
         result.push_back(vector<TreeNode *>{nullptr});
         for (int i = 1; i <= n; ++i) {
@@ -25,22 +27,15 @@ public:
             // 0,n-1   1,n-2   2,n-3     ... n-1,0
             vector<TreeNode *> resultJ;
             for (int j = 0; j < i; ++j) {
-//                cout << "=================== left ============" << endl;
-//                cout << result[j];
-//                cout << "=================== right ============" << endl;
-//                cout << result[i - j - 1];
                 for (auto left:result[j])
                     for (auto right:result[i - j - 1]) {
                         auto root = new TreeNode(j + 1);
-//                        cout << "root " << root->val << endl;
                         root->left = copyWithBase(left);
                         root->right = copyWithBase(right, j + 1);
                         resultJ.push_back(root);
                     }
             }
             result.emplace_back(resultJ);
-            cout << "=================== " << i << "============" << endl;
-            cout << result.back();
         }
         return result[n];
     }
@@ -56,8 +51,6 @@ public:
 };
 
 TEST_CASE("Unique Binary Search Trees II") {
-    auto tree = makeTree({3, 2, nullptr, 1});
-    cout << tree;
     vector<TreeNode *> output = {
         makeTree({1, nullptr, 3, 2}),
         makeTree({3, 2, nullptr, 1}),
@@ -65,7 +58,8 @@ TEST_CASE("Unique Binary Search Trees II") {
         makeTree({2, 1, 3}),
         makeTree({1, nullptr, 2, nullptr, 3})
     };
-    cout << output;
+    cout << "expect output:" << endl << output << endl;
     auto answer = Solution().generateTrees(3);
+    cout << "answer:" << endl << answer << endl;
     REQUIRE(multiset<Tree>(answer.begin(), answer.end()) == multiset<Tree>(output.begin(), output.end()));
 }
