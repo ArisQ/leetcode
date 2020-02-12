@@ -22,9 +22,10 @@ int maxProfit(const vector<int> &prices) {
 ```
 
 重点在于1处求解最小值。试解释如下：
-``dp[k][i]``表示``prices[0..i]``数组进行k次transaction的最大收益
-因此``dp[0][i]``恒为0
+``dp[k][i]``表示``prices[0..i]``数组进行k次transaction的最大收益，因此``dp[0][i]``恒为0。
+
 对于``k,i``，minPrice的含义为，为``0...i``中这样一个元素j，``0<=j<=i``，使得``prices[i]-prices[j]+dp[k-1][j-1]``最大，这样就包含了``prices[i]-prices[j]``一次和``dp[k-1][j-1]``k-1次transaction，共k次的最大值。
 
 因此，如果``prices[i]-dp[k-1][i-1]<minPrice``，就可以保证后续的任意s，``i<=s<n``，有``prices[s]-(prices[i]-dp[k-1][i-1])>prices[s]-minPrice``，从而需要1处的赋值。
 
+简要：i可以作为minPrice的含义，为可以作为第k次transaction的买入点，使得0到i-1中进行k-1次transaction，i为第k次的买入点时，总k次transaction最大。
