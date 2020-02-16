@@ -108,22 +108,3 @@ TEST_CASE("Word Ladder II") {
     });
     REQUIRE(Solution().findLadders("hit", "cog", {"hot", "dot", "dog", "lot", "log"}) == vector<vector<string>>{});
 }
-/*'
- beginWord = "hit",
-endWord = "cog",
-wordList = []
-
-Output:
-[
-  [],
-  []
-]
-Example 2:
-
-Input:
-beginWord = "hit"
-endWord = "cog"
-wordList = ["hot","dot","dog","lot","log"]
-
-Output: []
- */
